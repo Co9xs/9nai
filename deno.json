@@ -4,4 +4,3 @@
     "check": "deno check --importmap import_maps.json src/mod.ts"
   }
 }
-

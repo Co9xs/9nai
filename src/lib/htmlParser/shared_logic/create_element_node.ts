@@ -10,7 +10,7 @@ import { Attribute, ElementNode, NodeType, TextNode } from "../type.ts";
 export function createElementNode(
   tagName: string,
   attributes: Attribute[],
-  children: (ElementNode | TextNode)[]
+  children: (ElementNode | TextNode)[],
 ): ElementNode {
   return {
     type: NodeType.Element,

@@ -4,9 +4,9 @@ import { createTextNode } from "./shared_logic/create_text_node.ts";
 import {
   Attribute,
   ElementNode,
-  TextNode,
   HtmlSymbolToken,
   SELF_CLOSABLE_TAG_NAMES,
+  TextNode,
 } from "./type.ts";
 
 // FIXME: improve handling eof
@@ -142,7 +142,7 @@ export class HtmlParser {
     } else if (
       key &&
       [HtmlSymbolToken.GREATER_THAN, HtmlSymbolToken.WHITE_SPACE].includes(
-        nextChar as HtmlSymbolToken
+        nextChar as HtmlSymbolToken,
       )
     ) {
       const value = true;

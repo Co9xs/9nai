@@ -12,7 +12,7 @@ Deno.test(
       attributes: [],
       children: [],
     });
-  }
+  },
 );
 
 Deno.test(
@@ -21,7 +21,7 @@ Deno.test(
     const result = createElementNode(
       "div",
       [{ id: "id-1", class: "class-1" }],
-      []
+      [],
     );
     assertEquals(result, {
       type: NodeType.Element,
@@ -29,7 +29,7 @@ Deno.test(
       attributes: [{ id: "id-1", class: "class-1" }],
       children: [],
     });
-  }
+  },
 );
 
 Deno.test(
@@ -51,7 +51,7 @@ Deno.test(
           attributes: [{ id: "id-1", class: "class-1" }],
           children: [],
         },
-      ]
+      ],
     );
     assertEquals(result, {
       type: NodeType.Element,
@@ -72,5 +72,5 @@ Deno.test(
         },
       ],
     });
-  }
+  },
 );
