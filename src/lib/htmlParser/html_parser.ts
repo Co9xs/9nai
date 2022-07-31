@@ -36,7 +36,7 @@ export class HtmlParser {
    * 次の1文字を先読みして返す関数（position を進めることはしない）
    * @returns {string | EOF} 現状 parse 中の文字の次の1文字
    */
-  private peekNextCar(): string | EOF {
+  private peekNextChar(): string | EOF {
     return this.isEOF()
       ? END_OF_FILE
       : this.input.substring(this.curPosition, this.curPosition + 1);
@@ -57,7 +57,7 @@ export class HtmlParser {
    * @returns {ElementNode | TextNode} parse 結果
    */
   private parseNode(): ElementNode | TextNode {
-    return this.peekNextCar() === HtmlSymbolToken.LESS_THAN
+    return this.peekNextChar() === HtmlSymbolToken.LESS_THAN
       ? this.parseAsElementNode()
       : this.parseAsTextNode();
   }
@@ -187,7 +187,7 @@ export class HtmlParser {
    */
   private readWhile(conditionFn: (n: string | EOF) => boolean): string {
     let result = "";
-    while (conditionFn(this.peekNextCar()) === true) {
+    while (conditionFn(this.peekNextChar()) === true) {
       result += this.readChar();
     }
     return result;
