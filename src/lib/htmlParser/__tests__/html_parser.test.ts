@@ -3,9 +3,7 @@ import { parseHtml } from "../html_parser.ts";
 import { NodeType } from "../type.ts";
 
 Deno.test("parseHtml: 属性, 子要素なしの単一の html を parse できる", () => {
-  const value = `
-  <p></p>
-  `;
+  const value = `<p></p>`;
   const result = parseHtml(value);
   assertEquals(result, {
     type: NodeType.Element,
@@ -16,9 +14,7 @@ Deno.test("parseHtml: 属性, 子要素なしの単一の html を parse でき�
 });
 
 Deno.test("parseHtml: 1つの属性がある単一の html を parse できる", () => {
-  const value = `
-  <p class="text"></p>
-  `;
+  const value = `<p class="text"></p>`;
   const result = parseHtml(value);
   assertEquals(result, {
     type: NodeType.Element,
@@ -64,9 +60,7 @@ Deno.test("parseHtml: 複数の属性がある単一の html を parse できる
 });
 
 Deno.test("parseHtml: 1つの子要素がある html を parse できる", () => {
-  const value = `
-  <p>Hello, World!</p>
-  `;
+  const value = `<p>Hello, World!</p>`;
   const result = parseHtml(value);
   assertEquals(result, {
     type: NodeType.Element,

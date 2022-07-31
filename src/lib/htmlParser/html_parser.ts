@@ -29,7 +29,7 @@ export class HtmlParser {
    * @returns {boolean} 現在 EOF に到達してるかどうかの真偽値
    */
   private isEOF(): boolean {
-    return this.curPosition + 1 >= this.input.length;
+    return this.curPosition + 1 > this.input.length;
   }
 
   /**
@@ -142,7 +142,7 @@ export class HtmlParser {
     } else if (
       key &&
       [HtmlSymbolToken.GREATER_THAN, HtmlSymbolToken.WHITE_SPACE].includes(
-        nextChar as HtmlSymbolToken,
+        nextChar as HtmlSymbolToken
       )
     ) {
       const value = true;
@@ -194,7 +194,7 @@ export class HtmlParser {
   }
 
   /**
-   * 空白文字を skip して parse を進めるための helper 関数
+   * 空白文字の間は parse を進め続ける（空白を skip するため）の関数
    * @returns {void}
    */
   private consumeWhiteSpace(): void {
