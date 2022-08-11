@@ -29,11 +29,11 @@ export type Value = Keyword | Color | Length;
 
 type Keyword = string;
 
-type Length = [number, Unit];
+export type Length = [number, Unit];
 
-type Unit = "px" | "em" | "rem" | "vh" | "vw" | "vmin" | "vmax";
+export type Unit = "px" | "em" | "rem" | "vh" | "vw" | "vmin" | "vmax";
 
-type Color = {
+export type Color = {
   r: number;
   g: number;
   b: number;
@@ -47,3 +47,6 @@ export type StyledNode = {
   specificValues: PropertyMap;
   children: StyledNode[];
 };
+
+export type IdentifierSymbol = "#";
+export type ClassSymbol = ".";
