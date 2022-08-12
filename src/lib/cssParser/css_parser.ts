@@ -2,10 +2,13 @@ import { assert } from "https://deno.land/std@0.150.0/testing/asserts.ts";
 import {
   ClassSymbol,
   Color,
+  Declaration,
   IdentifierSymbol,
   Length,
+  Rule,
   Selector,
   SelectorType,
+  Stylesheet,
   Unit,
 } from "./type.ts";
 
@@ -180,5 +183,53 @@ export class CssParser {
     }
   }
 
-  
+  private parseDeclaration(): Declaration {
+    const key = this.readWhile((char) => /[a-zA-Z-]/.test(char));
+    this.consumeWhiteSpace();
+    assert(this.readChar() === ":");
+    const value = this.parseValue();
+    return {
+      key,
+      value,
+    };
+  }
+
+  private parseDeclarations(): Declaration[] {
+    const declarations: Declaration[] = [];
+    while (true) {
+      this.consumeWhiteSpace();
+      if (this.peekNextChar() === "}") {
+        break;
+      }
+      declarations.push(this.parseDeclaration());
+      this.consumeWhiteSpace();
+      assert(this.readChar() === ";");
+    }
+    return declarations;
+  }
+
+  parseRules(): Stylesheet {
+    const rules: Rule[] = [];
+    while (true) {
+      this.consumeWhiteSpace();
+      if (this.isEOF()) {
+        break;
+      }
+      const selectors = this.parseSelectors();
+      assert(this.readChar() === "{");
+      const declarations = this.parseDeclarations();
+      assert(this.readChar() === "}");
+      rules.push({
+        selectors,
+        declarations,
+      });
+    }
+    return {
+      rules,
+    };
+  }
 }
+
+export const parseCss = (source: string): Stylesheet => {
+  return new CssParser(source).parseRules();
+};

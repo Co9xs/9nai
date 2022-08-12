@@ -241,3 +241,163 @@ Deno.test("CssParser parseValue: 文字列の value を parse できる", () => 
   const parser = new CssParser(source);
   assertEquals(parser["parseValue"](), "space-between");
 });
+
+Deno.test("CssParser parseDeclaration: declaration を parse できる", () => {
+  const source = `justify-content: space-between;`;
+  const parser = new CssParser(source);
+  assertEquals(parser["parseDeclaration"](), {
+    key: "justify-content",
+    value: "space-between",
+  });
+});
+
+Deno.test(
+  "CssParser parseDeclarations: 複数の declaration を parse できる",
+  () => {
+    const source = `
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+  `;
+    const parser = new CssParser(source);
+    assertEquals(parser["parseDeclarations"](), [
+      {
+        key: "display",
+        value: "flex",
+      },
+      {
+        key: "justify-content",
+        value: "space-between",
+      },
+      {
+        key: "align-items",
+        value: "center",
+      },
+    ]);
+  }
+);
+Deno.test(
+  "CssParser parseRules: 複数の selector, declaration から rule の配列を返す",
+  () => {
+    const source = `
+    h1 .className #idName {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+  `;
+    const parser = new CssParser(source);
+    assertEquals(parser["parseRules"](), {
+      rules: [
+        {
+          selectors: [
+            {
+              type: SelectorType.Tag,
+              name: "h1",
+            },
+            {
+              type: SelectorType.Class,
+              name: "className",
+            },
+            {
+              type: SelectorType.Id,
+              name: "idName",
+            },
+          ],
+          declarations: [
+            {
+              key: "display",
+              value: "flex",
+            },
+            {
+              key: "justify-content",
+              value: "space-between",
+            },
+            {
+              key: "align-items",
+              value: "center",
+            },
+          ],
+        },
+      ],
+    });
+  }
+);
+
+Deno.test("CssParser parseCss: 複数の rule を含む CSS を parse できる", () => {
+  const source = `
+    h1 .className #idName {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    h2 .class2 {
+      color: #FFFFFF;
+      width: 1080px;
+    }
+  `;
+  const parser = new CssParser(source);
+  assertEquals(parser["parseRules"](), {
+    rules: [
+      {
+        selectors: [
+          {
+            type: SelectorType.Tag,
+            name: "h1",
+          },
+          {
+            type: SelectorType.Class,
+            name: "className",
+          },
+          {
+            type: SelectorType.Id,
+            name: "idName",
+          },
+        ],
+        declarations: [
+          {
+            key: "display",
+            value: "flex",
+          },
+          {
+            key: "justify-content",
+            value: "space-between",
+          },
+          {
+            key: "align-items",
+            value: "center",
+          },
+        ],
+      },
+      {
+        selectors: [
+          {
+            type: SelectorType.Tag,
+            name: "h2",
+          },
+          {
+            type: SelectorType.Class,
+            name: "class2",
+          },
+        ],
+        declarations: [
+          {
+            key: "color",
+            value: {
+              r: 255,
+              g: 255,
+              b: 255,
+              a: 255,
+            },
+          },
+          {
+            key: "width",
+            value: [1080, "px"],
+          },
+        ],
+      },
+    ],
+  });
+});
