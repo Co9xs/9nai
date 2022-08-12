@@ -142,7 +142,7 @@ export class HtmlParser {
     } else if (
       key &&
       [HtmlSymbolToken.GREATER_THAN, HtmlSymbolToken.WHITE_SPACE].includes(
-        nextChar as HtmlSymbolToken
+        nextChar as HtmlSymbolToken,
       )
     ) {
       const value = true;

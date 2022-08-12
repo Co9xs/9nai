@@ -14,7 +14,7 @@ Deno.test(
     parser["readChar"]();
     // NOTE: 4文字読み終わった時点で EOF になる
     assertEquals(parser["isEOF"](), true);
-  }
+  },
 );
 
 Deno.test(
@@ -34,7 +34,7 @@ Deno.test(
     parser["readChar"]();
     // NOTE: EOF のときは END_OF_FILE を返す
     assertEquals(parser["peekNextChar"](), END_OF_FILE);
-  }
+  },
 );
 
 Deno.test(
@@ -46,7 +46,7 @@ Deno.test(
     assertEquals(parser["readChar"](), "o");
     assertEquals(parser["readChar"](), "g");
     assertEquals(parser["readChar"](), "e");
-  }
+  },
 );
 
 Deno.test(
@@ -55,9 +55,9 @@ Deno.test(
     // NOTE: 記号以外の文字列の間は読み続けるパターン
     assertEquals(
       new CssParser(`hog-e-fuga`)["readWhile"]((c: string) => /\w/.test(c)),
-      "hog"
+      "hog",
     );
-  }
+  },
 );
 
 Deno.test(
@@ -67,9 +67,9 @@ Deno.test(
     const parser = new CssParser(source);
     assertEquals(
       parser["readWhile"]((c: string) => /\s/.test(c)),
-      "   "
+      "   ",
     );
-  }
+  },
 );
 
 Deno.test("CssParser consumeComma: 次の文字が , の時だけ 1文字進める", () => {
@@ -95,7 +95,7 @@ Deno.test(
       type: SelectorType.Class,
       name: "className",
     });
-  }
+  },
 );
 
 Deno.test(
@@ -107,7 +107,7 @@ Deno.test(
       type: SelectorType.Id,
       name: "idName",
     });
-  }
+  },
 );
 
 Deno.test(
@@ -119,7 +119,7 @@ Deno.test(
       type: SelectorType.Tag,
       name: "h1",
     });
-  }
+  },
 );
 
 Deno.test(
@@ -137,7 +137,7 @@ Deno.test(
         name: "class2",
       },
     ]);
-  }
+  },
 );
 
 Deno.test(
@@ -155,7 +155,7 @@ Deno.test(
         name: "id2",
       },
     ]);
-  }
+  },
 );
 
 Deno.test(
@@ -173,7 +173,7 @@ Deno.test(
         name: "h2",
       },
     ]);
-  }
+  },
 );
 
 Deno.test(
@@ -195,7 +195,7 @@ Deno.test(
         name: "tag",
       },
     ]);
-  }
+  },
 );
 Deno.test(
   "CssParser parseSelectors: 複数の class, id, tag を parse できる",
@@ -216,7 +216,7 @@ Deno.test(
         name: "tag",
       },
     ]);
-  }
+  },
 );
 
 Deno.test("CssParser parseLength: 数字と単位のペアを parse できる", () => {
@@ -275,7 +275,7 @@ Deno.test(
         value: "center",
       },
     ]);
-  }
+  },
 );
 Deno.test(
   "CssParser parseRules: 複数の selector, declaration から rule の配列を返す",
@@ -322,7 +322,7 @@ Deno.test(
         },
       ],
     });
-  }
+  },
 );
 
 Deno.test("CssParser parseCss: 複数の rule を含む CSS を parse できる", () => {
