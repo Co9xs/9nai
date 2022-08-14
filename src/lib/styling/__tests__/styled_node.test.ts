@@ -16,7 +16,7 @@ Deno.test(
 
     const assertStyledNodeEquals = (
       actual: StyledNode,
-      expected: ExpectedStyledNode
+      expected: ExpectedStyledNode,
     ): void => {
       assertEquals(actual.node, expected.node);
       assertEquals(actual.propertyMap, expected.propertyMap);
@@ -208,10 +208,10 @@ Deno.test(
       await t.step(c.case.title, () => {
         const actual = buildStyledTree(
           parseHtml(c.case.html),
-          parseCss(c.case.css)
+          parseCss(c.case.css),
         );
         assertStyledNodeEquals(actual, c.expected);
       });
     }
-  }
+  },
 );

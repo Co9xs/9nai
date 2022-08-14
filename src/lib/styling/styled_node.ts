@@ -42,7 +42,7 @@ export class StyledNode implements StyledNodeInterface {
   private lookup(
     prop: string,
     fallbackName: string,
-    defaultValue: Value
+    defaultValue: Value,
   ): Value {
     return this.getValue(prop) || this.getValue(fallbackName) || defaultValue;
   }
@@ -91,8 +91,8 @@ export class StyledNode implements StyledNodeInterface {
     if (
       selector.type === SelectorType.Id &&
       node.attributes.filter(
-        (attr) => attr.key === "id" && attr.value === selector.name
-      ).length !== 0
+          (attr) => attr.key === "id" && attr.value === selector.name,
+        ).length !== 0
     ) {
       return true;
     }
@@ -116,7 +116,7 @@ export class StyledNode implements StyledNodeInterface {
    */
   private createSpecificPropertyMap(
     node: ElementNode | TextNode,
-    stylesheet: Stylesheet
+    stylesheet: Stylesheet,
   ): PropertyMap {
     const map = stylesheet.rules.reduce<PropertyMap>((result, rule) => {
       // NOTE: stylesheet には詳細度順に並んだ rule が入ってくるので、より詳細度の高いものがあればここで上書きされる
@@ -133,7 +133,7 @@ export class StyledNode implements StyledNodeInterface {
 
 export const buildStyledTree = (
   node: ElementNode | TextNode,
-  stylesheet: Stylesheet
+  stylesheet: Stylesheet,
 ): StyledNode => {
   const sortedStylesheet = sortStylesheetByDetail(stylesheet);
 
