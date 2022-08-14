@@ -29,6 +29,11 @@ export interface TextNode extends INode {
   content: string;
 }
 
+export type Node = {
+  children: Node[];
+  nodeType: TextNode | ElementNode;
+};
+
 export enum HtmlSymbolToken {
   EQUAL = "=",
   GREATER_THAN = ">",
